@@ -1,0 +1,22 @@
+{
+  "name": "vue-multi-store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unitwk/vue-multi-store.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unitwk/vue-multi-store/issues"
+  },
+  "homepage": "https://github.com/unitwk/vue-multi-store#readme",
+  "devDependencies": {
+    "vue": "^3.3.8"
+  }
+}
