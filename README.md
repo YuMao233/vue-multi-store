@@ -2,6 +2,8 @@
 
 Helps you quickly write components with data sharing between them and reduce coupling between components when using Vue3.
 
+English | [中文](readme.md)
+
 ## What is this?
 
 In Vue, the state management was originally designed to store only one set of data, such as user information or work order information.
@@ -71,7 +73,7 @@ From the above code, we can conclude that the child component will receive a `Re
 
 It helps decouple the high-coupling relationships between parent, child, and sibling components, eliminates the need for deep binding caused by props passing between components, and allows them to depend on this global "state" together, achieving reactive synchronization updates. This effectively solves the problem of high coupling between components.
 
-![image](./docs/examples_1.png)
+![image](docs/examples_1.png)
 
 ## Disadvantages
 
