@@ -1,18 +1,18 @@
 # vue-multi-store
 
-Helps you quickly write data sharing between components and reduce coupling between components when using Vue3.
+Helps you quickly write components with data sharing between them and reduce coupling between components when using Vue3.
 
-## What's this?
+## What is this?
 
-In most cases, Vue's state management was originally designed to store only one piece of data, such as a user's information or a work order's information.
+In Vue, the state management was originally designed to store only one set of data, such as user information or work order information.
 
-If you want to store multiple pieces of information at the same time, you need to modify the implementation plan, that is, refactor the code.
+If you need to store multiple sets of information, you would need to modify the implementation solution, which means refactoring the code.
 
-But thanks to the combined API of Vue3, we can design a set of such API to quickly store any different types of information for multiple components.
+However, thanks to Vue3's Composition API, we can design an API like this to quickly store any number of different types of information for multiple components.
 
 ```html
 <script lang="ts" setup>
-  //interface.ts
+  // interface.ts
   interface UserInfo {
     name: string;
     age: 18;
@@ -22,10 +22,10 @@ But thanks to the combined API of Vue3, we can design a set of such API to quick
     const uid = router.query.id; // User Id
     const resultUserInfo = await request(); // do something...
 
-    //Set any type of data and share it
+    // Set arbitrary type of data and share it
     // Parameter 1: Data category
     // Parameter 2: Data ID
-    // Parameter 3: New data value set
+    // Parameter 3: New data value to be set
     setState<UserInfo>("User", uid, {
       name: "My Name",
       age: 18,
@@ -41,7 +41,7 @@ But thanks to the combined API of Vue3, we can design a set of such API to quick
 </template>
 ```
 
-Subcomponents use:
+Usage in child component:
 
 ```html
 <!-- Child component -->
@@ -53,9 +53,9 @@ Subcomponents use:
   // Return: Ref<UserInfo | undefined>
   const userInfo = getState<UserInfo>("User", uid);
 
-  // Change UserInfo asynchronously, the parent component and other components that use this data will be updated responsively
+  // Asynchronously modify UserInfo, the parent component and other components that use this data will be updated reactively
   setTimeout(() => {
-    if (userInfo.value) userInfo.value.name = "Yoooo~";
+    if (userInfo.value) userInfo.value.name = "Yoooo～";
   }, 6000);
 </script>
 
@@ -67,17 +67,18 @@ Subcomponents use:
 
 ## Conclusion
 
-From the above code, we can conclude that the subcomponent will get a `Ref<UserInfo | undefined>`. This data will be changed responsively due to changes in other components, so it can be applied to many scenarios, such as subcomponents and sibling components. Even the data of the parent component is shared.
+From the above code, we can conclude that the child component will receive a `Ref<UserInfo | undefined>`, which will be updated reactively when other components modify it. Therefore, it can be applied to many scenarios, such as sharing data between child components, sibling components, or even parent components.
 
-It is used to decouple the high coupling between parent, child, and sibling components, so that multiple Vue components no longer rely on props to pass values to each other, resulting in deep binding. Everyone depends on this global "state" and also implements responsiveness. Synchronous updates can effectively solve the problem of high coupling between components.
+It helps decouple the high-coupling relationships between parent, child, and sibling components, eliminates the need for deep binding caused by props passing between components, and allows them to depend on this global "state" together, achieving reactive synchronization updates. This effectively solves the problem of high coupling between components.
 
 ![image](./docs/examples_1.png)
 
-## shortcoming
+## Disadvantages
 
-Violating the principle of single data flow of Vue3, it may cause some confusion over time. This is because the main design inspiration comes from Redis, which is often used by back-end development to achieve data sharing.
+It violates the principle of one-way data flow in Vue3, and over time it may cause some confusion. The main design inspiration here comes from Redis, which is often used in backend development for data sharing.
 
-## Memory recycling processing
+## Memory Recycle Handling
 
-As you can see, there are various "states" with UID=1 and UID=2 that persist, but some data must be recycled when they are no longer needed.
-Thanks to the combined API, we implement calculation based on references, and release related instances based on the reference number box after the component is destroyed.
+As you can see, various "states" with `UID=1` and `UID=2` persist, but some data is no longer needed and should be recycled.
+
+Thanks to the Composition API, we have implemented calculation based on references, and when the component is destroyed, we release the relevant instances based on the reference count.
