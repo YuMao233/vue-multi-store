@@ -2,7 +2,7 @@
 
 Helps you quickly write components with data sharing between them and reduce coupling between components when using Vue3.
 
-English | [中文](readme_cn.md)
+English | [中文](README_CN.md)
 
 ## What is this?
 
